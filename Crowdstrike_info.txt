@@ -1,0 +1,167 @@
+###The Big Picture###
+----------------
+
+a)Hosts are placed into host groups
+b)Make the policies that you want for the host group
+c)Those policies make up the Prevention policy
+d)Assign a Prevention policy to a host group
+
+
+
+
+Sensor Update policy
+Prevention Policy
+Firewall Policy
+Response policy
+USB Device policy
+
+
+
+####Prevention Policies####
+------------------------
+
+Examples of Prevention policies in windows:
+
+Rapid Deployment policy, Control group policy, Exceptions Group policy,
+Default workstation Policy, Default Server Policy, 
+
+
+
+Under prevention policy in falcon console we have different tabs like:
+-Settings
+-Assigned Host Groups
+-Assigned Custom IOAs
+
+
+
+We have different policies like
+Firewall policy, Sensor Update policy, IOA policy, NGAV policy
+when we put all together then it is Prevention policy
+
+
+What makes up Prevention policies
+---------------------------------
+1) Sensor visibilities
+2) NGAV(can slide the detection vs prevention settings from cautious->extra aggressive)
+3) Malware Protection
+4) Behavior and ML detections
+
+Under Prevention policy
+there are different types
+
+A)Sensor Visibility
+Categories:
+a)Enhanced Visibility
+b)Hardware-Enhanced Visibility
+
+B)Next-Gen Antivirus
+Categories:
+a)Cloud Machine Learning
+-Cloud Anti-malware   (values are Disabled, Cautious, Moderate, Aggressive, Extra Aggressive)
+We need to always have more Detection and Less Prevention
+Detection    Disabled, Cautious, Moderate, Aggressive, Extra Aggressive
+Prevention   Disabled, Cautious, Moderate, Aggressive, Extra Aggressive
+-Adware & Pup         (values are Disabled, Cautious, Moderate, Aggressive, Extra Aggressive)
+
+b)Sensor Machine Learning
+c)On-Demand Scans Machine Learning
+d)On-Demand Scans
+e)On-Write
+f)Quarantine
+
+C)Malware Protection
+Categories:
+a)Execution Blocking
+
+D)Behavior-Based Prevention
+Categories:
+a)Expolit Mitigation
+b)Ransomware
+c)Expolitation Behavior
+d)Lateral Movement and Credential Access
+e)Remediation
+
+
+Prevention Policy Precedence
+--------------------------
+Hosts may be assigned to more than one policy
+If no host assigned to a policy, it will drop to the last precedence policy=default
+Default = catch all policy
+
+Make one: endpoint security>prevention policies>create new> platform>name>create
+-enable settings>save>confirm>enable>enable policy
+
+-Set the precedence order
+
+Precedence is important
+
+you can have as many policies based on level of organisation and your use cases
+
+like 11 or 25 etc and give precedence by toggling up or down in the console
+
+host will pick the lower precedence value policy 
+ex: host is attached to 2 policies with precedence 4 and 2, host group will pick up policy 2 as it has highest precedence
+
+
+
+Default, Phase 1,2,3 Prevention policies
+--------------------------------------------
+Default(Windows)
+Default(Mac)
+Default(Linux)
+
+Phase 1 --Initial deployment
+-Intended for customers setting up falcon for first time
+-rapid deployment strategy, doesn't fully protect, should be used during initial deployment and alongside an AV
+-Should used for minimum time
+
+Phase 2 -- Interim protection
+-Intended if you have no AV(Anti virus) or EDR solution currently in placed
+-a bit more protective in policy settings
+-Start introducing your IOA
+
+Phase 3 -- Optimal protection
+-The ideal standard level of protection for your hosts
+-Should try to get here in 90 days or less to ensure adequate protection of your endpoints
+
+
+As you increase the phase, fine tune your false positives, as it will become more aggressive and preventive
+add your exclusions/whitelisting
+
+monitor your rollouts, pushing your groups to one of these phases
+keep an eye if host drops into default policy, if there any missed one address it and assign it to a policy
+
+Ask yourself as an admin:
+What prevention policy makes sense to you in your environment
+what rollout makes sense
+
+
+
+Sensor Update policy
+-------------------
+
+Sensor update schedule using non prod hours
+use n-1 or n-2 versions in prod  -- this is "sensor version" which helps in downgrade or upgrade the build
+
+
+
+We have types
+
+A) Sensor Protection
+category:
+a)sensor uninstall and maintenance
+-uninstall and maintenance protection
+-Bulk maintenance mode   --- we can use 1 token to uninstall sensors on multiple machines at once
+
+
+once you create a policy we need to Policy status(enable) it to make some changes
+and this policies will also have precedence
+
+
+Throttle sensor update rate --- this is to limit how many sensor updates can be installed per minute.
+we can update this no of hosts per minute based on network bandwidth
+
+increase or decrease this value based on network bandwidth
+
+Throttle Channel File updates  --- limit the size of channel file updates by time period
+
